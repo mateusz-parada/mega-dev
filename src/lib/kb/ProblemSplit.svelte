@@ -8,15 +8,15 @@
 
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
 
-  // The one-day move is its own problem (desk-notes.json); the rest split by cause.
-  const problem = (r: Report) => (notes.oneDayMove.includes(r.id) ? 'one-day-move' : (causeOf(r, tenantOf(r)) ?? 'unplaced'));
+  // Counted the desk's way: every report where it is filed. The one-day move (desk-notes.json)
+  // is its own problem; its reports are also counted under the cause of their tenant.
+  const problem = (r: Report) => causeOf(r, tenantOf(r)) ?? 'unplaced';
+  const count = (p: string) => merged.filter((r) => problem(r) === p);
 
-  const rows = $derived(
-    ['parser', 'hint', 'one-day-move', 'unplaced'].map((p) => {
-      const rs = merged.filter((r) => problem(r) === p);
-      return { problem: p, count: rs.length, tenants: new Set(rs.map((r) => r.tenant)).size };
-    }),
-  );
+  const rows = $derived([
+    ...['parser', 'hint', 'unplaced'].map((p) => ({ problem: p, rs: count(p) })),
+    { problem: 'one-day-move', rs: merged.filter((r) => notes.oneDayMove.includes(r.id)) },
+  ].map(({ problem, rs }) => ({ problem, count: rs.length, tenants: new Set(rs.map((r) => r.tenant)).size })));
 </script>
 
 <p><strong>{merged.length}</strong> unique reports merged into #{ticket}.</p>

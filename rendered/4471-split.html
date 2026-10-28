@@ -7,7 +7,7 @@
 <h2>The split</h2>
 <p><strong>412</strong> unique reports merged into #4471.</p>
 <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th></tr></thead><tbody>
-<tr><td><code>parser</code></td><td>374</td><td>11</td></tr>
+<tr><td><code>parser</code></td><td>379</td><td>11</td></tr>
 <tr><td><code>hint</code></td><td>33</td><td>3</td></tr>
 <tr><td><code>one-day-move</code></td><td>5</td><td>5</td></tr>
 </tbody></table>
@@ -18,6 +18,6 @@
 <li><b>one-day-move</b>: dates are off by exactly one day, not a month flip. This looks like a timezone or DST problem. It needs its own investigation.</li>
 </ol>
 <h2>How we counted</h2>
-<ul><li>The export repeats rows: one id, one report (15 duplicates removed).</li><li>Intake's intakeTag is a guess from the browser. We placed each report by its tenant's locale and booking form instead.</li><li>The five reports in desk-notes.json (oneDayMove) are counted as problem 3.</li></ul>
+<ul><li>The export repeats rows: one id, one report (15 duplicates removed).</li><li>Intake's intakeTag is a guess from the browser. We placed each report by its tenant's locale and booking form instead.</li><li>Reports are counted where they are filed, as the desk's own view does: 379 parser + 33 hint = 412. The five reports in desk-notes.json (oneDayMove) are filed under parser and are also the whole of problem 3, so they appear in both rows.</li></ul>
 <p>desk ref <b>DR-21BC-VTTQ</b></p>
 </body></html>

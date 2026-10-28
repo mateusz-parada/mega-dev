@@ -40,7 +40,8 @@ One ticket hid two bugs. Fixing the parser will not stop the form or the one-day
 - The export repeats rows: one id, one report (15 duplicates removed).
 - Intake's `intakeTag` is a guess from the browser. We placed each report by its tenant's
   locale and booking form instead, as `causes.ts` does.
-- The five reports in `desk-notes.json` (`oneDayMove`) are counted as problem 3, not as the
-  cause of the tenant they were filed under.
+- Reports are counted where they are filed, as the desk's own view does: 379 `parser` + 33 `hint` = 412.
+  The five reports in `desk-notes.json` (`oneDayMove`) are filed under `parser` and are also
+  the whole of problem 3, so they appear in both rows.
 
 <RenderStamp {signature} />
