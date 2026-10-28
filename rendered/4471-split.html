@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>#4471 split · three problems, not one · support kb</title></head><body>
+<a href="/kb">support desk · kb</a>
+<h1>#4471 split · three problems, not one</h1>
+<p>owner <b>support desk</b> · known · reviewed 2026-10-28</p>
+<p>#4471 was filed as one bug: dates parse month first in eu locales. The reports hold three different problems. Only the first is the parser.</p>
+<blockquote>One ticket hid two bugs. Fixing the parser will not stop the form or the one-day move.</blockquote>
+<h2>The split</h2>
+<p><strong>412</strong> unique reports merged into #4471.</p>
+<table><thead><tr><th>problem</th><th>reports</th><th>tenants</th></tr></thead><tbody>
+<tr><td><code>parser</code></td><td>374</td><td>11</td></tr>
+<tr><td><code>hint</code></td><td>33</td><td>3</td></tr>
+<tr><td><code>one-day-move</code></td><td>5</td><td>5</td></tr>
+</tbody></table>
+<h2>Problems</h2>
+<ol>
+<li><b>parser</b>: the shared parser reads every date month first, so day-first tenants get flipped dates (7 April → 4 July). Reports come through the app and email.</li>
+<li><b>hint</b>: tenants on the booking-v3 form (alder.physio, copper.studio, pale.harbour) see MM/DD/YYYY under the date field. Their people type month first and the form reads it their way. The parser fix does not touch this: change the form hint.</li>
+<li><b>one-day-move</b>: dates are off by exactly one day, not a month flip. This looks like a timezone or DST problem. It needs its own investigation.</li>
+</ol>
+<h2>How we counted</h2>
+<ul><li>The export repeats rows: one id, one report (15 duplicates removed).</li><li>Intake's intakeTag is a guess from the browser. We placed each report by its tenant's locale and booking form instead.</li><li>The five reports in desk-notes.json (oneDayMove) are counted as problem 3.</li></ul>
+<p>desk ref <b>DR-21BC-VTTQ</b></p>
+</body></html>
