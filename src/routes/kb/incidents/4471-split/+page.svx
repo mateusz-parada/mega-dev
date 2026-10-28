@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 split · three problems, not one'
+title: '#4471 split · two problems, not one'
 owner: support desk
 status: known
 reviewed: 2026-10-28
@@ -13,11 +13,11 @@ signature: v1.eyJzdWIiOiIzMzUzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-#4471 was filed as one bug: dates parse month first in eu locales. The reports hold three
+#4471 was filed as one bug: dates parse month first in eu locales. The reports hold two
 different problems. Only the first is the parser.
 
 <Callout>
-One ticket hid two bugs. Fixing the parser will not stop the form or the one-day move.
+One ticket hid two bugs. Fixing the parser will not stop the form.
 </Callout>
 
 ## The split
@@ -27,21 +27,13 @@ One ticket hid two bugs. Fixing the parser will not stop the form or the one-day
 ## Problems
 
 1. **`parser`**: the shared parser reads every date month first, so day-first tenants get
-   flipped dates (7 April → 4 July). Reports come through the app and email.
+   flipped dates (7 April → 4 July). 379 reports. Five of them read as a one-day move
+   (`desk-notes.json`); they are counted here, where they are filed.
 2. **`hint`**: tenants on the `booking-v3` form (`alder.physio`, `copper.studio`,
    `pale.harbour`) see `MM/DD/YYYY` under the date field. Their people type month first and
-   the form reads it their way. The parser fix does not touch this: change the form hint.
-3. **`one-day-move`**: dates are off by exactly one day, not a month flip ("only June", an
-   invite before the booking, Lisbon and Toronto getting different days). This looks like a
-   timezone or DST problem. It needs its own investigation.
+   the form reads it their way. 33 reports. The parser fix does not touch this.
 
-## How we counted
-
-- The export repeats rows: one id, one report (15 duplicates removed).
-- Intake's `intakeTag` is a guess from the browser. We placed each report by its tenant's
-  locale and booking form instead, as `causes.ts` does.
-- Reports are counted where they are filed, as the desk's own view does: 379 `parser` + 33 `hint` = 412.
-  The five reports in `desk-notes.json` (`oneDayMove`) are filed under `parser` and are also
-  the whole of problem 3, so they appear in both rows.
+379 + 33 = 412. Intake's `intakeTag` is a guess from the browser; we placed each report by its
+tenant's locale and booking form, and removed 15 repeated rows (one id, one report).
 
 <RenderStamp {signature} />

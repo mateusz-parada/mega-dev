@@ -15,7 +15,6 @@
 
   const rows = $derived([
     ...['parser', 'hint', 'unplaced'].map((p) => ({ problem: p, rs: count(p) })),
-    { problem: 'one-day-move', rs: merged.filter((r) => notes.oneDayMove.includes(r.id)) },
   ].map(({ problem, rs }) => ({ problem, count: rs.length, tenants: new Set(rs.map((r) => r.tenant)).size })));
 </script>
 
